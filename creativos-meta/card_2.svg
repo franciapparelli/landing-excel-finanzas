@@ -1,0 +1,144 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="#F5F3EC" />
+
+  <!-- Subtle organic background curves -->
+  <path d="M-50,200 Q200,50 400,250 T800,100 T1150,300" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <path d="M-100,850 Q300,700 600,950 T1150,800" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <circle cx="950" cy="180" r="140" fill="#EFECE3" opacity="0.7"/>
+  <circle cx="120" cy="920" r="160" fill="#EFECE3" opacity="0.7"/>
+
+  <!-- Top Title -->
+  <text x="540" y="150" font-family="'DejaVu Serif', Georgia, serif" font-size="46" font-weight="bold" fill="#1E2229" text-anchor="middle" letter-spacing="-0.5">
+    Reemplazado por una sola planilla
+  </text>
+
+  <!-- Subtitle Tag / Pill -->
+  <g transform="translate(540, 195)">
+    <rect x="-90" y="0" width="180" height="36" rx="18" fill="#E3EAE4"/>
+    <text x="0" y="23" font-family="'DejaVu Sans', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#2C4F3B" text-anchor="middle" letter-spacing="1">
+      SIMPLIFICACIÓN
+    </text>
+  </g>
+
+  <!-- Slide Number Dot Indicator -->
+  <g transform="translate(540, 1010)">
+    <rect x="-60" y="-18" width="120" height="30" rx="15" fill="#EAE5DC"/>
+    <text x="0" y="2" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#78716C" text-anchor="middle">
+      2 / 7
+    </text>
+  </g>
+
+  <!-- Main Content Center -->
+  
+  <g transform="translate(130, 270)">
+    <!-- Container Card -->
+    <rect width="820" height="670" rx="32" fill="#FFFFFF" filter="url(#shadow)" stroke="#E6E2D8" stroke-width="2"/>
+
+    <!-- Left Box: The replaced stack -->
+    <g transform="translate(50, 70)">
+      <rect width="320" height="530" rx="24" fill="#FAF8F5" stroke="#E6E0D6" stroke-width="2" />
+      <text x="160" y="55" font-family="'DejaVu Sans', sans-serif" font-size="16" font-weight="bold" fill="#78716C" text-anchor="middle">REEMPLAZA TODO ESTO:</text>
+
+      <!-- Strikethrough item 1 -->
+      <g transform="translate(25, 90)">
+        <rect width="270" height="60" rx="12" fill="#FFFFFF" stroke="#E7E5E4"/>
+        <text x="20" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" fill="#A8A29E" text-decoration="line-through">~Bloc de notas~</text>
+      </g>
+
+      <!-- Strikethrough item 2 -->
+      <g transform="translate(25, 170)">
+        <rect width="270" height="60" rx="12" fill="#FFFFFF" stroke="#E7E5E4"/>
+        <text x="20" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" fill="#A8A29E" text-decoration="line-through">~App en USD ($4.99/mes)~</text>
+      </g>
+
+      <!-- Strikethrough item 3 -->
+      <g transform="translate(25, 250)">
+        <rect width="270" height="60" rx="12" fill="#FFFFFF" stroke="#E7E5E4"/>
+        <text x="20" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" fill="#A8A29E" text-decoration="line-through">~Chat de WhatsApp solo~</text>
+      </g>
+
+      <!-- Strikethrough item 4 -->
+      <g transform="translate(25, 330)">
+        <rect width="270" height="60" rx="12" fill="#FFFFFF" stroke="#E7E5E4"/>
+        <text x="20" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" fill="#A8A29E" text-decoration="line-through">~Sorpresa de la tarjeta~</text>
+      </g>
+
+      <!-- Strikethrough item 5 -->
+      <g transform="translate(25, 410)">
+        <rect width="270" height="60" rx="12" fill="#FFFFFF" stroke="#E7E5E4"/>
+        <text x="20" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" fill="#A8A29E" text-decoration="line-through">~Cuaderno de papel~</text>
+      </g>
+      
+      <!-- Badge "-5 herramientas" -->
+      <g transform="translate(90, 485)">
+        <rect width="140" height="32" rx="16" fill="#FEE2E2"/>
+        <text x="70" y="21" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#DC2626" text-anchor="middle">- 5 HERRAMIENTAS</text>
+      </g>
+    </g>
+
+    <!-- Arrow in Middle -->
+    <g transform="translate(385, 315)">
+      <circle cx="25" cy="20" r="28" fill="#F3EFEA"/>
+      <path d="M12,20 L36,20 M26,10 L38,20 L26,30" stroke="#2C4F3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Right Box: One Google Sheets Template -->
+    <g transform="translate(450, 70)">
+      <rect width="320" height="530" rx="24" fill="#E3EAE4" stroke="#BCD0C0" stroke-width="2" />
+      
+      <!-- Icon Sheets -->
+      <g transform="translate(130, 50)">
+        <rect width="60" height="70" rx="10" fill="#0F9D58"/>
+        <!-- Sheet lines -->
+        <rect x="12" y="22" width="36" height="6" fill="#FFFFFF"/>
+        <rect x="12" y="34" width="36" height="6" fill="#FFFFFF"/>
+        <rect x="12" y="46" width="36" height="6" fill="#FFFFFF"/>
+      </g>
+
+      <text x="160" y="165" font-family="'DejaVu Serif', serif" font-size="28" font-weight="bold" fill="#1E2229" text-anchor="middle">Finanzas 360</text>
+      <text x="160" y="195" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="600" fill="#2C4F3B" text-anchor="middle">Google Sheets + Excel</text>
+
+      <!-- Checklist -->
+      <g transform="translate(30, 230)">
+        <circle cx="15" cy="15" r="12" fill="#2C4F3B"/>
+        <path d="M10,15 L14,19 L20,11" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+        <text x="36" y="20" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#1E2229">Un solo panel central</text>
+      </g>
+
+      <g transform="translate(30, 290)">
+        <circle cx="15" cy="15" r="12" fill="#2C4F3B"/>
+        <path d="M10,15 L14,19 L20,11" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+        <text x="36" y="20" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#1E2229">Cuotas y tarjetas al día</text>
+      </g>
+
+      <g transform="translate(30, 350)">
+        <circle cx="15" cy="15" r="12" fill="#2C4F3B"/>
+        <path d="M10,15 L14,19 L20,11" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+        <text x="36" y="20" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#1E2229">Solo 10 min por semana</text>
+      </g>
+
+      <g transform="translate(30, 410)">
+        <circle cx="15" cy="15" r="12" fill="#2C4F3B"/>
+        <path d="M10,15 L14,19 L20,11" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+        <text x="36" y="20" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#1E2229">100% automatizado</text>
+      </g>
+
+      <!-- Badge "1 solo pago" -->
+      <g transform="translate(65, 475)">
+        <rect width="190" height="34" rx="17" fill="#2C4F3B"/>
+        <text x="95" y="22" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">UN SOLO PAGO · $9.900</text>
+      </g>
+    </g>
+  </g>
+
+</svg>

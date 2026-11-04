@@ -1,0 +1,96 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="#F5F3EC" />
+
+  <!-- Subtle organic background curves -->
+  <path d="M-50,200 Q200,50 400,250 T800,100 T1150,300" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <path d="M-100,850 Q300,700 600,950 T1150,800" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <circle cx="950" cy="180" r="140" fill="#EFECE3" opacity="0.7"/>
+  <circle cx="120" cy="920" r="160" fill="#EFECE3" opacity="0.7"/>
+
+  <!-- Top Title -->
+  <text x="540" y="150" font-family="'DejaVu Serif', Georgia, serif" font-size="46" font-weight="bold" fill="#1E2229" text-anchor="middle" letter-spacing="-0.5">
+    Tu meta de ahorro, proyectada
+  </text>
+
+  <!-- Subtitle Tag / Pill -->
+  <g transform="translate(540, 195)">
+    <rect x="-90" y="0" width="180" height="36" rx="18" fill="#E3EAE4"/>
+    <text x="0" y="23" font-family="'DejaVu Sans', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#2C4F3B" text-anchor="middle" letter-spacing="1">
+      VISIÓN 360
+    </text>
+  </g>
+
+  <!-- Slide Number Dot Indicator -->
+  <g transform="translate(540, 1010)">
+    <rect x="-60" y="-18" width="120" height="30" rx="15" fill="#EAE5DC"/>
+    <text x="0" y="2" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#78716C" text-anchor="middle">
+      6 / 7
+    </text>
+  </g>
+
+  <!-- Main Content Center -->
+  
+  <g transform="translate(130, 260)">
+    <!-- Tablet Bezel -->
+    <rect width="820" height="690" rx="36" fill="#18181B" filter="url(#shadow)"/>
+    <rect x="14" y="14" width="792" height="662" rx="26" fill="#F8FAFC"/>
+    
+    <!-- Top Tablet Camera -->
+    <circle cx="410" cy="24" r="4" fill="#3F3F46"/>
+
+    <g transform="translate(30, 45)">
+      <!-- Tab Header -->
+      <rect width="760" height="50" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="25" y="32" font-family="'DejaVu Sans', sans-serif" font-size="15" font-weight="bold" fill="#0F172A">🎯 PLANIFICADOR DE METAS &amp; FONDO DE EMERGENCIA</text>
+      <rect x="580" y="11" width="160" height="28" rx="6" fill="#ECFDF5"/>
+      <text x="660" y="30" font-family="'DejaVu Sans', sans-serif" font-size="11" font-weight="bold" fill="#059669" text-anchor="middle">CRECIMIENTO REAL</text>
+
+      <!-- Goal Card 1: Fondo de Emergencia -->
+      <g transform="translate(0, 65)">
+        <rect width="760" height="150" rx="14" fill="#FFFFFF" stroke="#E2E8F0" filter="url(#subtle-shadow)"/>
+        <text x="25" y="35" font-family="'DejaVu Sans', sans-serif" font-size="15" font-weight="bold" fill="#0F172A">Meta 1: Fondo de Emergencia (3 meses de gastos fijos)</text>
+        <text x="25" y="65" font-family="'DejaVu Sans', sans-serif" font-size="13" fill="#64748B">Objetivo: $ 1.800.000 ARS  •  Ahorrado: <tspan font-weight="bold" fill="#10B981">$ 1.250.000 ARS</tspan></text>
+        
+        <!-- Progress Bar -->
+        <rect x="25" y="85" width="710" height="22" rx="11" fill="#E2E8F0"/>
+        <rect x="25" y="85" width="495" height="22" rx="11" fill="#10B981"/>
+        <text x="560" y="102" font-family="'DejaVu Sans', sans-serif" font-size="12" font-weight="bold" fill="#047857">70% COMPLETADO</text>
+        
+        <text x="25" y="132" font-family="'DejaVu Sans', sans-serif" font-size="11" fill="#059669">✓ Faltan solo 2 meses manteniendo tu ritmo actual de ahorro.</text>
+      </g>
+
+      <!-- Goal Card 2: Vacaciones / Viaje -->
+      <g transform="translate(0, 230)">
+        <rect width="760" height="150" rx="14" fill="#FFFFFF" stroke="#E2E8F0" filter="url(#subtle-shadow)"/>
+        <text x="25" y="35" font-family="'DejaVu Sans', sans-serif" font-size="15" font-weight="bold" fill="#0F172A">Meta 2: Viaje a la Costa / Vacaciones de Invierno</text>
+        <text x="25" y="65" font-family="'DejaVu Sans', sans-serif" font-size="13" fill="#64748B">Objetivo: $ 600.000 ARS  •  Ahorrado: <tspan font-weight="bold" fill="#3B82F6">$ 510.000 ARS</tspan></text>
+        
+        <!-- Progress Bar -->
+        <rect x="25" y="85" width="710" height="22" rx="11" fill="#E2E8F0"/>
+        <rect x="25" y="85" width="600" height="22" rx="11" fill="#3B82F6"/>
+        <text x="645" y="102" font-family="'DejaVu Sans', sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">85%</text>
+
+        <text x="25" y="132" font-family="'DejaVu Sans', sans-serif" font-size="11" fill="#2563EB">✓ En objetivo para viajar sin tener que tarjetear todo a último momento.</text>
+      </g>
+
+      <!-- Bottom Motivation Quote -->
+      <g transform="translate(0, 395)">
+        <rect width="760" height="150" rx="14" fill="#E3EAE4" stroke="#BCD0C0"/>
+        <text x="380" y="45" font-family="'DejaVu Serif', serif" font-size="20" font-weight="bold" fill="#1E2229" text-anchor="middle">"El dinero ordenado compra tranquilidad."</text>
+        <text x="380" y="80" font-family="'DejaVu Sans', sans-serif" font-size="14" fill="#2C4F3B" text-anchor="middle">No necesitás ganar el doble para empezar a ahorrar.</text>
+        <text x="380" y="110" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#1E2229" text-anchor="middle">Solo necesitás un sistema que te muestre la verdad de tus números.</text>
+      </g>
+    </g>
+  </g>
+
+</svg>

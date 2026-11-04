@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Acceso Confirmado! — Finanzas360</title>
+  
+  <!-- Anti-flicker script para Dark Mode -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20width=%22100%22%20height=%22100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+
+  <!-- Google Fonts: Fraunces (Serif) + Outfit (Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            planner: {
+              bg: '#f6f3ea',
+              darkBg: '#1c1f1b',
+              fg: '#2b2e26',
+              darkFg: '#f5f5f5',
+              card: '#fdfcf7',
+              darkCard: '#242823',
+              primary: '#6e7b5b',
+              primaryHover: '#5c674b',
+              darkPrimary: '#9da882',
+              secondary: '#c27a54',
+              muted: '#eceae0',
+              darkMuted: '#2c3329',
+              mutedFg: '#6b6f60',
+              darkMutedFg: '#a3a89e',
+              accent: '#e5e8da',
+              border: '#e2dfd2',
+              darkBorder: '#2c3329',
+            }
+          },
+          boxShadow: {
+            'card': '0 4px 25px -2px rgba(43, 46, 38, 0.05), 0 2px 10px -1px rgba(43, 46, 38, 0.03)',
+            'card-hover': '0 12px 30px -5px rgba(43, 46, 38, 0.08), 0 4px 12px -2px rgba(43, 46, 38, 0.04)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #f6f3ea;
+      color: #2b2e26;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .dark body {
+      background-color: #1c1f1b;
+      color: #f5f5f5;
+    }
+    .pill-clean {
+      background-color: #e5e8da;
+      color: #3f4a32;
+      border: 1px solid #d5dbc7;
+    }
+    .dark .pill-clean {
+      background-color: #2c3329;
+      color: #b7c09e;
+      border-color: #3a4238;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-planner-accent selection:text-planner-primary min-h-screen flex flex-col justify-between">
+
+  <!-- NAVBAR -->
+  <header class="border-b border-planner-border dark:border-planner-darkBorder bg-[#fdfcf7]/90 dark:bg-[#1c1f1b]/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 bg-planner-primary dark:bg-planner-darkPrimary rounded-lg flex items-center justify-center text-white dark:text-[#1c1f1b] font-serif font-bold text-lg shadow-sm">
+          F
+        </div>
+        <span class="font-serif font-semibold text-lg text-planner-fg dark:text-planner-darkFg tracking-tight">Finanzas360</span>
+      </a>
+
+      <!-- Selector Modo Claro / Oscuro -->
+      <button id="theme-toggle" 
+              type="button" 
+              aria-label="Cambiar tema claro u oscuro"
+              class="w-9 h-9 rounded-full bg-planner-muted dark:bg-planner-darkMuted border border-planner-border dark:border-planner-darkBorder flex items-center justify-center text-planner-fg dark:text-planner-darkFg hover:opacity-80 transition cursor-pointer">
+        <svg id="theme-icon-sun" class="w-4 h-4 hidden text-amber-300" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+        </svg>
+        <svg id="theme-icon-moon" class="w-4 h-4 text-planner-fg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-grow py-12 md:py-16 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- ENCABEZADO DE ÉXITO -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="w-16 h-16 rounded-2xl bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary flex items-center justify-center text-3xl mx-auto mb-4 shadow-sm animate-bounce">
+          ✓
+        </div>
+        <span class="pill-clean text-xs px-3.5 py-1 rounded-full font-medium inline-block mb-3">
+          Pago Confirmado por Mercado Pago
+        </span>
+        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-planner-fg dark:text-planner-darkFg tracking-tight leading-tight mb-4">
+          ¡Felicitaciones! Ya tenés acceso completo a Finanzas360
+        </h1>
+        <p class="text-planner-mutedFg dark:text-planner-darkMutedFg text-sm sm:text-base leading-relaxed">
+          Guardá esta página en tus favoritos. Abajo tenés los accesos directos para empezar a organizar tu plata y tus hábitos hoy mismo.
+        </p>
+      </div>
+
+      <!-- TARJETAS DE DESCARGA / ACCESO DIRECTO -->
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        
+        <!-- Tarjeta 1: Google Sheets (Recomendado) -->
+        <div class="bg-planner-card dark:bg-planner-darkCard p-6 rounded-3xl border-2 border-planner-primary dark:border-planner-darkPrimary shadow-card relative flex flex-col justify-between">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] text-[11px] font-semibold px-3 py-0.5 rounded-full shadow-sm whitespace-nowrap">
+            RECOMENDADO
+          </div>
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl mb-4">
+              📊
+            </div>
+            <h2 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">
+              Google Sheets
+            </h2>
+            <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-4">
+              La versión más práctica. Se sincroniza sola en tu celular, tablet y PC. Al tocar el botón te creará una copia privada en tu Google Drive.
+            </p>
+          </div>
+          <div>
+            <a href="https://docs.google.com/spreadsheets/d/1ttMh_ZrrJaUwqESimbt4LrbSYdn94NpVKzcySxNtDho/copy" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="w-full inline-flex items-center justify-center gap-2 bg-planner-primary hover:bg-planner-primaryHover dark:bg-planner-darkPrimary dark:hover:bg-[#8e9973] text-white dark:text-[#1c1f1b] font-medium text-xs sm:text-sm py-3 px-4 rounded-xl shadow-md transition text-center">
+              <span>Hacer una Copia en Drive</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+            <span class="block text-[10px] text-center text-planner-mutedFg dark:text-planner-darkMutedFg mt-2">
+              Requiere cuenta de Google (gratuita)
+            </span>
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: Microsoft Excel (.xlsx) -->
+        <div class="bg-planner-card dark:bg-planner-darkCard p-6 rounded-3xl border border-planner-border dark:border-planner-darkBorder shadow-card flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-950/50 text-teal-600 dark:text-teal-400 flex items-center justify-center text-2xl mb-4">
+              📗
+            </div>
+            <h2 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">
+              Microsoft Excel (.xlsx)
+            </h2>
+            <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-4">
+              Para usar en tu computadora sin conexión a internet. Compatible con Microsoft Excel 2016 en adelante.
+            </p>
+          </div>
+          <div>
+            <a href="archivos/Finanzas360-Plantilla.xlsx" 
+               download="Finanzas360-Plantilla.xlsx"
+               class="w-full inline-flex items-center justify-center gap-2 bg-planner-bg dark:bg-[#181a17] hover:bg-planner-accent dark:hover:bg-planner-darkMuted text-planner-fg dark:text-planner-darkFg border border-planner-border dark:border-planner-darkBorder font-medium text-xs sm:text-sm py-3 px-4 rounded-xl transition text-center">
+              <span>Descargar Archivo Excel</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            </a>
+            <span class="block text-[10px] text-center text-planner-mutedFg dark:text-planner-darkMutedFg mt-2">
+              Descarga directa a tu dispositivo
+            </span>
+          </div>
+        </div>
+
+        <!-- Tarjeta 3: Guía PDF -->
+        <div class="bg-planner-card dark:bg-planner-darkCard p-6 rounded-3xl border border-planner-border dark:border-planner-darkBorder shadow-card flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950/50 text-[#c27a54] flex items-center justify-center text-2xl mb-4">
+              📘
+            </div>
+            <h2 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">
+              Guía "Finanzas sin Estrés"
+            </h2>
+            <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-4">
+              40 páginas con la Regla de los 4 Bolsillos, el método para liquidar deudas de tarjetas y armar tu colchón anti-inflación.
+            </p>
+          </div>
+          <div>
+            <a href="Finanzas360-Guia.pdf" 
+               download="Finanzas360-Guia.pdf"
+               class="w-full inline-flex items-center justify-center gap-2 bg-planner-bg dark:bg-[#181a17] hover:bg-planner-accent dark:hover:bg-planner-darkMuted text-planner-fg dark:text-planner-darkFg border border-planner-border dark:border-planner-darkBorder font-medium text-xs sm:text-sm py-3 px-4 rounded-xl transition text-center">
+              <span>Descargar Guía en PDF</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            </a>
+            <span class="block text-[10px] text-center text-planner-mutedFg dark:text-planner-darkMutedFg mt-2">
+              Formato PDF estándar para cualquier lector
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      
+
+      <!-- PASO A PASO PARA COMENZAR -->
+      <div class="bg-planner-bg dark:bg-[#181a17] border border-planner-border dark:border-planner-darkBorder rounded-3xl p-6 sm:p-8 mb-12 shadow-sm">
+        <h3 class="font-serif text-xl font-normal text-planner-fg dark:text-planner-darkFg mb-5">
+          Tres pasos para empezar hoy:
+        </h3>
+        <ol class="space-y-4 text-xs sm:text-sm text-planner-fg dark:text-planner-darkFg">
+          <li class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] font-serif font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong>Creá tu copia de la planilla:</strong> Tocá el botón de Google Sheets arriba. Se abrirá una pantalla de Google con el botón azul <em>"Hacer una copia"</em>. Al presionarlo, ya es tuya para siempre.
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] font-serif font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong>Cargá tus datos base del mes:</strong> Completá tus ingresos estimados, tus gastos fijos fijos (alquiler, servicios, suscripciones) y tus compras en cuotas pendientes en la solapa de Finanzas.
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] font-serif font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <div>
+              <strong>Descargá la app de Google Sheets en tu celular:</strong> Buscala gratis en Google Play Store o App Store. Vas a tener la planilla en el bolsillo para anotar tus compras en 10 segundos en cualquier lugar.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-planner-border dark:border-planner-darkBorder bg-planner-card dark:bg-[#121411] py-6 px-4 text-center text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">
+    <div class="max-w-4xl mx-auto space-y-2">
+      <p class="font-serif font-medium text-planner-fg dark:text-planner-darkFg text-sm">Finanzas360 • Sistema Vida Pro</p>
+      <p>Todos los derechos reservados. Gracias por confiar en nosotros.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE TEMA CLARO / OSCURO -->
+  <script>
+    (function initTheme() {
+      const toggleBtn = document.getElementById('theme-toggle');
+      const sunIcon = document.getElementById('theme-icon-sun');
+      const moonIcon = document.getElementById('theme-icon-moon');
+
+      function syncIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (isDark) {
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+        } else {
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+        }
+      }
+      syncIcons();
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+          syncIcons();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="#F5F3EC" />
+
+  <!-- Subtle organic background curves -->
+  <path d="M-50,200 Q200,50 400,250 T800,100 T1150,300" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <path d="M-100,850 Q300,700 600,950 T1150,800" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <circle cx="950" cy="180" r="140" fill="#EFECE3" opacity="0.7"/>
+  <circle cx="120" cy="920" r="160" fill="#EFECE3" opacity="0.7"/>
+
+  <!-- Top Title -->
+  <text x="540" y="150" font-family="'DejaVu Serif', Georgia, serif" font-size="46" font-weight="bold" fill="#1E2229" text-anchor="middle" letter-spacing="-0.5">
+    Tus gastos hormiga, detectados
+  </text>
+
+  <!-- Subtitle Tag / Pill -->
+  <g transform="translate(540, 195)">
+    <rect x="-90" y="0" width="180" height="36" rx="18" fill="#E3EAE4"/>
+    <text x="0" y="23" font-family="'DejaVu Sans', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#2C4F3B" text-anchor="middle" letter-spacing="1">
+      AHORRO REAL
+    </text>
+  </g>
+
+  <!-- Slide Number Dot Indicator -->
+  <g transform="translate(540, 1010)">
+    <rect x="-60" y="-18" width="120" height="30" rx="15" fill="#EAE5DC"/>
+    <text x="0" y="2" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#78716C" text-anchor="middle">
+      5 / 7
+    </text>
+  </g>
+
+  <!-- Main Content Center -->
+  
+  <g transform="translate(130, 260)">
+    <!-- Tablet Bezel -->
+    <rect width="820" height="690" rx="36" fill="#18181B" filter="url(#shadow)"/>
+    <rect x="14" y="14" width="792" height="662" rx="26" fill="#F8FAFC"/>
+    
+    <!-- Top Tablet Camera -->
+    <circle cx="410" cy="24" r="4" fill="#3F3F46"/>
+
+    <g transform="translate(30, 45)">
+      <!-- Tab Header -->
+      <rect width="760" height="50" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <text x="25" y="32" font-family="'DejaVu Sans', sans-serif" font-size="15" font-weight="bold" fill="#0F172A">🔍 AUDITORÍA DE FUGAS &amp; GASTOS HORMIGA</text>
+      <rect x="580" y="11" width="160" height="28" rx="6" fill="#FEE2E2"/>
+      <text x="660" y="30" font-family="'DejaVu Sans', sans-serif" font-size="11" font-weight="bold" fill="#DC2626" text-anchor="middle">FUGA DETECTADA</text>
+
+      <!-- Big Red Banner -->
+      <g transform="translate(0, 65)">
+        <rect width="760" height="95" rx="14" fill="#FEF2F2" stroke="#FECACA"/>
+        <text x="25" y="35" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#991B1B">GASTOS HORMIGA &amp; SUSCRIPCIONES NO USADAS DETECTADAS:</text>
+        <text x="25" y="74" font-family="'DejaVu Sans', sans-serif" font-size="30" font-weight="bold" fill="#DC2626">$ 48.200 ARS / mes</text>
+        <rect x="520" y="28" width="215" height="42" rx="8" fill="#FFFFFF" stroke="#FCA5A5"/>
+        <text x="627" y="54" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#B91C1C" text-anchor="middle">❌ $ 578.400 / año</text>
+      </g>
+
+      <!-- Detected Subscriptions List -->
+      <g transform="translate(0, 180)">
+        <rect width="760" height="385" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+        
+        <text x="25" y="36" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#0F172A">Gastos prescindibles detectados automáticamente:</text>
+
+        <!-- Item 1 -->
+        <g transform="translate(25, 55)">
+          <rect width="710" height="60" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
+          <circle cx="30" cy="30" r="14" fill="#FEE2E2"/>
+          <text x="30" y="35" font-family="'DejaVu Sans', sans-serif" font-size="12" font-weight="bold" fill="#DC2626" text-anchor="middle">✕</text>
+          <text x="60" y="28" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#1E293B">App de streaming olvidada (débito auto)</text>
+          <text x="60" y="46" font-family="'DejaVu Sans', sans-serif" font-size="11" fill="#64748B">Sin uso en los últimos 90 días</text>
+          <text x="590" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" font-weight="bold" fill="#DC2626">$ 8.200 / mes</text>
+        </g>
+
+        <!-- Item 2 -->
+        <g transform="translate(25, 125)">
+          <rect width="710" height="60" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
+          <circle cx="30" cy="30" r="14" fill="#FEE2E2"/>
+          <text x="30" y="35" font-family="'DejaVu Sans', sans-serif" font-size="12" font-weight="bold" fill="#DC2626" text-anchor="middle">✕</text>
+          <text x="60" y="28" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#1E293B">Membresía premium inactiva</text>
+          <text x="60" y="46" font-family="'DejaVu Sans', sans-serif" font-size="11" fill="#64748B">Cobro recurrente sin aprovechamiento</text>
+          <text x="590" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" font-weight="bold" fill="#DC2626">$ 14.500 / mes</text>
+        </g>
+
+        <!-- Item 3 -->
+        <g transform="translate(25, 195)">
+          <rect width="710" height="60" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
+          <circle cx="30" cy="30" r="14" fill="#FEE2E2"/>
+          <text x="30" y="35" font-family="'DejaVu Sans', sans-serif" font-size="12" font-weight="bold" fill="#DC2626" text-anchor="middle">✕</text>
+          <text x="60" y="28" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#1E293B">Deliverys no planificados (fines de semana)</text>
+          <text x="60" y="46" font-family="'DejaVu Sans', sans-serif" font-size="11" fill="#64748B">Supera el tope de la categoría ocio</text>
+          <text x="590" y="36" font-family="'DejaVu Sans', sans-serif" font-size="15" font-weight="bold" fill="#DC2626">$ 25.500 / mes</text>
+        </g>
+
+        <!-- Green Solution Banner -->
+        <g transform="translate(25, 275)">
+          <rect width="710" height="85" rx="12" fill="#ECFDF5" stroke="#A7F3D0"/>
+          <text x="25" y="34" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#047857">💡 RETORNO INMEDIATO DE TU INVERSIÓN:</text>
+          <text x="25" y="60" font-family="'DejaVu Sans', sans-serif" font-size="14" fill="#065F46">Cancelando solo una de estas suscripciones, recuperás los $9.900 de la planilla en tu primera semana.</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+</svg>

@@ -1,0 +1,130 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="#F5F3EC" />
+
+  <!-- Subtle organic background curves -->
+  <path d="M-50,200 Q200,50 400,250 T800,100 T1150,300" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <path d="M-100,850 Q300,700 600,950 T1150,800" fill="none" stroke="#EAE6DC" stroke-width="2" opacity="0.6"/>
+  <circle cx="950" cy="180" r="140" fill="#EFECE3" opacity="0.7"/>
+  <circle cx="120" cy="920" r="160" fill="#EFECE3" opacity="0.7"/>
+
+  <!-- Top Title -->
+  <text x="540" y="150" font-family="'DejaVu Serif', Georgia, serif" font-size="46" font-weight="bold" fill="#1E2229" text-anchor="middle" letter-spacing="-0.5">
+    Todo tu año ordenado por $9.900
+  </text>
+
+  <!-- Subtitle Tag / Pill -->
+  <g transform="translate(540, 195)">
+    <rect x="-90" y="0" width="180" height="36" rx="18" fill="#E3EAE4"/>
+    <text x="0" y="23" font-family="'DejaVu Sans', -apple-system, sans-serif" font-size="15" font-weight="600" fill="#2C4F3B" text-anchor="middle" letter-spacing="1">
+      OFERTA
+    </text>
+  </g>
+
+  <!-- Slide Number Dot Indicator -->
+  <g transform="translate(540, 1010)">
+    <rect x="-60" y="-18" width="120" height="30" rx="15" fill="#EAE5DC"/>
+    <text x="0" y="2" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#78716C" text-anchor="middle">
+      7 / 7
+    </text>
+  </g>
+
+  <!-- Main Content Center -->
+  
+  <g transform="translate(130, 260)">
+    <!-- Main Outer Card -->
+    <rect width="820" height="690" rx="36" fill="#FFFFFF" filter="url(#shadow)" stroke="#E6E2D8" stroke-width="2"/>
+
+    <!-- Offer Ribbon Top -->
+    <g transform="translate(260, 25)">
+      <rect width="300" height="34" rx="17" fill="#FEF3C7" stroke="#FDE68A"/>
+      <text x="150" y="23" font-family="'DejaVu Sans', sans-serif" font-size="12" font-weight="bold" fill="#92400E" text-anchor="middle">⚡ ACCESO COMPLETO E INMEDIATO</text>
+    </g>
+
+    <!-- Main Title of Product -->
+    <text x="410" y="105" font-family="'DejaVu Serif', serif" font-size="34" font-weight="bold" fill="#1E2229" text-anchor="middle">Sistema Finanzas360</text>
+    <text x="410" y="135" font-family="'DejaVu Sans', sans-serif" font-size="16" fill="#6B7280" text-anchor="middle">Plantilla Google Sheets + Excel + Guía en PDF descargable</text>
+
+    <!-- Feature Pills Grid -->
+    <g transform="translate(60, 160)">
+      <!-- Pill 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="335" height="50" rx="12" fill="#F8FAFC" stroke="#E2E8F0"/>
+        <circle cx="28" cy="25" r="12" fill="#10B981"/>
+        <text x="28" y="30" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">✓</text>
+        <text x="52" y="31" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#1E293B">Google Drive 100% Gratis</text>
+      </g>
+      <!-- Pill 2 -->
+      <g transform="translate(365, 0)">
+        <rect width="335" height="50" rx="12" fill="#F8FAFC" stroke="#E2E8F0"/>
+        <circle cx="28" cy="25" r="12" fill="#10B981"/>
+        <text x="28" y="30" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">✓</text>
+        <text x="52" y="31" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#1E293B">Apto Celular, Tablet y PC</text>
+      </g>
+      <!-- Pill 3 -->
+      <g transform="translate(0, 62)">
+        <rect width="335" height="50" rx="12" fill="#F8FAFC" stroke="#E2E8F0"/>
+        <circle cx="28" cy="25" r="12" fill="#10B981"/>
+        <text x="28" y="30" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">✓</text>
+        <text x="52" y="31" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#1E293B">Módulo Cuotas &amp; Tarjetas</text>
+      </g>
+      <!-- Pill 4 -->
+      <g transform="translate(365, 62)">
+        <rect width="335" height="50" rx="12" fill="#F8FAFC" stroke="#E2E8F0"/>
+        <circle cx="28" cy="25" r="12" fill="#10B981"/>
+        <text x="28" y="30" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">✓</text>
+        <text x="52" y="31" font-family="'DejaVu Sans', sans-serif" font-size="13" font-weight="bold" fill="#1E293B">Sin cuotas mensuales en USD</text>
+      </g>
+    </g>
+
+    <!-- Pricing Box Center -->
+    <g transform="translate(60, 295)">
+      <rect width="700" height="210" rx="20" fill="#FAF8F5" stroke="#E6E0D6" stroke-width="2"/>
+      
+      <!-- Strikethrough regular price -->
+      <text x="350" y="45" font-family="'DejaVu Sans', sans-serif" font-size="16" fill="#A8A29E" text-anchor="middle">
+        Precio regular: <tspan text-decoration="line-through">$35.000 ARS</tspan>
+      </text>
+
+      <!-- Discount badge -->
+      <rect x="490" y="27" width="95" height="26" rx="13" fill="#FEE2E2"/>
+      <text x="537" y="45" font-family="'DejaVu Sans', sans-serif" font-size="12" font-weight="bold" fill="#DC2626" text-anchor="middle">70% OFF</text>
+
+      <!-- Main Price Big -->
+      <text x="350" y="125" font-family="'DejaVu Sans', sans-serif" font-size="64" font-weight="bold" fill="#1E2229" text-anchor="middle">
+        $ 9.900 <tspan font-size="24" fill="#78716C">ARS</tspan>
+      </text>
+
+      <text x="350" y="165" font-family="'DejaVu Sans', sans-serif" font-size="14" font-weight="bold" fill="#2C4F3B" text-anchor="middle">
+        UN SOLO PAGO DE POR VIDA · SIN SUSCRIPCIONES
+      </text>
+
+      <text x="350" y="190" font-family="'DejaVu Sans', sans-serif" font-size="12" fill="#78716C" text-anchor="middle">
+        Descarga automática a tu correo electrónico al instante
+      </text>
+    </g>
+
+    <!-- CTA Button Bottom -->
+    <g transform="translate(130, 535)">
+      <rect width="560" height="70" rx="16" fill="#009EE3" filter="url(#shadow)"/>
+      <text x="280" y="44" font-family="'DejaVu Sans', sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+        OBTENER EL SISTEMA AHORA →
+      </text>
+    </g>
+
+    <!-- Guarantee & Security Subtext -->
+    <text x="410" y="645" font-family="'DejaVu Sans', sans-serif" font-size="12" fill="#78716C" text-anchor="middle">
+      🔒 Procesado de forma 100% segura por Mercado Pago
+    </text>
+  </g>
+
+</svg>

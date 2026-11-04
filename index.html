@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Finanzas360 — El Sistema Todo en Uno de Finanzas y Hábitos</title>
+  
+  <!-- Anti-flicker script para Dark Mode con persistencia en localStorage -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <!-- Meta SEO & Social -->
+  <meta name="description" content="Planificá con claridad y viví con tranquilidad. El sistema todo en uno en PDF + Planilla de cálculo inteligente para organizar tus finanzas y hábitos.">
+  <meta property="og:title" content="Finanzas360 — Planificá Todo Tu Dinero en un Solo Lugar">
+  <meta property="og:description" content="Un sistema calmo y conectado para tus finanzas, cuotas y hábitos. Compatible con Excel y Google Sheets.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20width=%22100%22%20height=%22100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+
+  <!-- Google Fonts idénticas a LifeOSPlanner: Fraunces (Serif) + Outfit (Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            planner: {
+              bg: '#f6f3ea',
+              darkBg: '#1c1f1b',
+              fg: '#2b2e26',
+              darkFg: '#f5f5f5',
+              card: '#fdfcf7',
+              darkCard: '#242823',
+              primary: '#6e7b5b',
+              primaryHover: '#5c674b',
+              darkPrimary: '#9da882',
+              secondary: '#c27a54',
+              muted: '#eceae0',
+              darkMuted: '#2c3329',
+              mutedFg: '#6b6f60',
+              darkMutedFg: '#a3a89e',
+              accent: '#e5e8da',
+              border: '#e2dfd2',
+              darkBorder: '#2c3329',
+            }
+          },
+          boxShadow: {
+            'card': '0 4px 25px -2px rgba(43, 46, 38, 0.05), 0 2px 10px -1px rgba(43, 46, 38, 0.03)',
+            'card-hover': '0 12px 30px -5px rgba(43, 46, 38, 0.08), 0 4px 12px -2px rgba(43, 46, 38, 0.04)',
+            'dark-card': '0 10px 30px -5px rgba(0, 0, 0, 0.5)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      -webkit-tap-highlight-color: transparent;
+      background-color: #f6f3ea;
+      color: #2b2e26;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .dark body {
+      background-color: #1c1f1b;
+      color: #f5f5f5;
+    }
+    .pill-clean {
+      background-color: #e5e8da;
+      color: #3f4a32;
+      border: 1px solid #d5dbc7;
+    }
+    .dark .pill-clean {
+      background-color: #2c3329;
+      color: #b7c09e;
+      border-color: #3a4238;
+    }
+      .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-planner-accent selection:text-planner-primary pb-24 md:pb-16">
+
+  <!-- TOP BANNER DE OFERTA -->
+  <aside aria-label="Alerta de oferta" class="bg-[#242823] text-[#f6f3ea] text-xs py-2 px-3 text-center sticky top-0 z-50 tracking-wide font-medium shadow-sm">
+    <div class="max-w-5xl mx-auto flex items-center justify-center gap-2">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#9da882] animate-ping"></span>
+      <span>⚡ Oferta de Lanzamiento Argentina: <strong>70% OFF</strong> solo por hoy</span>
+      <span class="opacity-50">|</span>
+      <span id="countdown" class="bg-black/30 px-2 py-0.5 rounded font-mono font-semibold">04:47:12</span>
+    </div>
+  </aside>
+
+  <!-- NAVBAR ESTILO LIFE OS PLANNER -->
+  <header class="border-b border-planner-border dark:border-planner-darkBorder bg-[#fdfcf7]/90 dark:bg-[#1c1f1b]/90 backdrop-blur-md sticky top-[33px] z-40 transition-colors">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 bg-planner-primary dark:bg-planner-darkPrimary rounded-lg flex items-center justify-center text-white dark:text-[#1c1f1b] font-serif font-bold text-lg shadow-sm">
+          F
+        </div>
+        <div>
+          <span class="font-serif font-semibold text-lg text-planner-fg dark:text-planner-darkFg tracking-tight">Finanzas360</span>
+        </div>
+      </a>
+
+      <!-- Navegación & CTA -->
+      <div class="flex items-center gap-3">
+        <!-- Selector Modo Claro / Oscuro -->
+        <button id="theme-toggle" 
+                type="button" 
+                aria-label="Cambiar tema claro u oscuro"
+                class="w-9 h-9 rounded-full bg-planner-muted dark:bg-planner-darkMuted border border-planner-border dark:border-planner-darkBorder flex items-center justify-center text-planner-fg dark:text-planner-darkFg hover:opacity-80 transition">
+          <svg id="theme-icon-sun" class="w-4 h-4 hidden text-amber-300" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+          </svg>
+          <svg id="theme-icon-moon" class="w-4 h-4 text-planner-fg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+          </svg>
+        </button>
+
+        <a href="#checkout" class="hidden sm:inline-flex items-center gap-2 bg-planner-primary hover:bg-planner-primaryHover dark:bg-planner-darkPrimary dark:hover:bg-[#8e9973] text-white dark:text-[#1c1f1b] font-medium text-xs sm:text-sm px-4 py-2 rounded-lg transition shadow-sm">
+          <span>Obtener por $9.900 ARS</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 1. HERO SECTION (CON IMAGEN OFICIAL FINANZAS 360) -->
+  <section class="pt-10 pb-16 md:pt-16 md:pb-24 px-4 sm:px-6 relative overflow-hidden">
+    <!-- Luces sutiles orgánicas de fondo -->
+    <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-planner-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-planner-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-16 lg:items-center">
+        
+        <!-- COLUMNA IZQUIERDA: COPYWRITING & CTAS -->
+        <div class="text-center lg:text-left mb-12 lg:mb-0">
+          
+          <!-- Rating y Badge -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-4">
+            <div class="flex text-amber-400 text-sm">★★★★★</div>
+            <span class="text-xs font-medium text-planner-mutedFg dark:text-planner-darkMutedFg">4.9/5 calificado por más de 1.400 personas</span>
+            <span class="pill-clean text-[11px] px-2.5 py-0.5 rounded-full font-medium ml-1">Combo Completo</span>
+          </div>
+
+          <!-- Título Principal -->
+          <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl xl:text-[54px] font-normal text-planner-fg dark:text-planner-darkFg tracking-tight leading-[1.18] mb-5">
+            Tomá el Control de tu Plata, tu Tiempo y tu <span class="italic font-serif text-planner-primary dark:text-planner-darkPrimary underline decoration-planner-primary/40 underline-offset-8">Vida</span>
+          </h1>
+
+          <!-- Subtítulo Sereno -->
+          <p class="text-planner-mutedFg dark:text-planner-darkMutedFg text-base sm:text-lg font-normal leading-relaxed mb-7 max-w-xl mx-auto lg:mx-0">
+            El sistema de control financiero inteligente. Diseñá tu mes, controlá tus gastos y proyectá tu futuro con la <strong>Regla de los 4 Bolsillos</strong> para ganarle a la inflación sin privarte de tus gustos.
+          </p>
+
+          <!-- Checklist de 4 puntos clave de la imagen oficial -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-lg mx-auto lg:mx-0 text-left text-xs sm:text-sm text-planner-fg dark:text-planner-darkFg mb-8">
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-planner-primary dark:text-planner-darkPrimary text-[11px] font-bold">✓</span>
+              <span><strong>Planilla de Control</strong> (Sheets & Excel)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-planner-primary dark:text-planner-darkPrimary text-[11px] font-bold">✓</span>
+              <span><strong>Regla de los 4 Bolsillos</strong> (Antinflación)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-planner-primary dark:text-planner-darkPrimary text-[11px] font-bold">✓</span>
+              <span><strong>Tracker de Hábitos & Metas 90 días</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-planner-primary dark:text-planner-darkPrimary text-[11px] font-bold">✓</span>
+              <span><strong>Guía Práctica en PDF</strong> (De Regalo)</span>
+            </div>
+          </div>
+
+          <!-- Botones de Acción -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-4">
+            <a href="#checkout" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-planner-primary hover:bg-planner-primaryHover dark:bg-planner-darkPrimary dark:hover:bg-[#8e9973] text-white dark:text-[#1c1f1b] font-medium text-base px-8 py-3.5 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 text-center">
+              <span>Obtener Sistema Completo ($9.900 ARS)</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+            <a href="#que-incluye" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-planner-card dark:bg-planner-darkCard hover:bg-white dark:hover:bg-[#2c312a] text-planner-fg dark:text-planner-darkFg font-medium text-base px-6 py-3.5 rounded-xl border border-planner-border dark:border-planner-darkBorder transition shadow-sm">
+              <span>Ver qué incluye</span>
+            </a>
+          </div>
+
+          <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg text-center lg:text-left">
+            Descarga instantánea • Compatible con Google Sheets y Excel • Pago único
+          </p>
+
+        </div>
+
+        <!-- COLUMNA DERECHA: IMAGEN OFICIAL DEL PRODUCTO -->
+        <div class="relative max-w-lg lg:max-w-none mx-auto">
+          <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 md:border-8 border-white dark:border-planner-darkCard transition-all">
+            <img src="images/finanzas360-mockup.jpg" 
+                 alt="Finanzas 360 — Sistema de Control Financiero Inteligente" 
+                 class="w-full h-auto object-cover block shadow-inner cursor-pointer hover:opacity-95 transition"
+                 loading="eager"
+                 onclick="openLightbox('images/finanzas360-mockup.jpg', 'Finanzas 360 — Sistema de Control Financiero Inteligente')"
+                 title="Hacé clic para ampliar">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- 1.5 SECCIÓN: GALERÍA INTERACTIVA DEL SISTEMA (RÉPLICA LIFE OS "INSIDE THE SYSTEM") -->
+  <section id="galeria-sistema" class="py-16 md:py-24 px-4 sm:px-6 bg-planner-card dark:bg-planner-darkCard border-t border-planner-border dark:border-planner-darkBorder transition-colors overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- Encabezado de la galería -->
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="pill-clean text-xs px-3 py-1 rounded-full font-medium inline-flex items-center gap-1.5 mb-3">
+          <svg class="w-3.5 h-3.5 text-planner-primary dark:text-planner-darkPrimary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Mirá el Sistema por Dentro
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-planner-fg dark:text-planner-darkFg tracking-tight">
+          5 Hubs Conectados. Una Sola Planilla. Un Sistema Calmo.
+        </h2>
+        <p class="text-planner-mutedFg dark:text-planner-darkMutedFg text-sm sm:text-base mt-3">
+          Hacé clic en cada pestaña para explorar los módulos en detalle. Cada vista está pensada para darte claridad mental y control total.
+        </p>
+      </div>
+
+      <!-- Selector de Tabs Interactivo -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-8" id="gallery-tabs">
+        <button type="button" data-index="0" class="gallery-tab-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 bg-planner-primary text-white dark:bg-planner-darkPrimary dark:text-[#1c1f1b] shadow-sm">
+          🌿 Todo en Uno
+        </button>
+        <button type="button" data-index="1" class="gallery-tab-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 bg-planner-bg dark:bg-[#181a17] text-planner-mutedFg dark:text-planner-darkMutedFg hover:text-planner-fg dark:hover:text-white border border-planner-border dark:border-planner-darkBorder">
+          ⚡ Panel Central
+        </button>
+        <button type="button" data-index="2" class="gallery-tab-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 bg-planner-bg dark:bg-[#181a17] text-planner-mutedFg dark:text-planner-darkMutedFg hover:text-planner-fg dark:hover:text-white border border-planner-border dark:border-planner-darkBorder">
+          💰 Hub Finanzas
+        </button>
+        <button type="button" data-index="3" class="gallery-tab-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 bg-planner-bg dark:bg-[#181a17] text-planner-mutedFg dark:text-planner-darkMutedFg hover:text-planner-fg dark:hover:text-white border border-planner-border dark:border-planner-darkBorder">
+          🧘 Hábitos & Bienestar
+        </button>
+        <button type="button" data-index="4" class="gallery-tab-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 bg-planner-bg dark:bg-[#181a17] text-planner-mutedFg dark:text-planner-darkMutedFg hover:text-planner-fg dark:hover:text-white border border-planner-border dark:border-planner-darkBorder">
+          🎯 Metas 90 Días
+        </button>
+      </div>
+
+      <!-- Contenedor Showcase Principal -->
+      <div class="bg-planner-bg dark:bg-[#181a17] border border-planner-border dark:border-planner-darkBorder rounded-3xl p-4 sm:p-8 shadow-card mb-8 transition-colors">
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Imagen Preview con botón de zoom / lightbox -->
+          <div class="lg:col-span-8 relative group">
+            <div class="relative rounded-2xl overflow-hidden shadow-xl border-4 md:border-6 border-white dark:border-[#242823] bg-white cursor-pointer" id="gallery-image-trigger" title="Hacé clic para ampliar">
+              <img id="gallery-main-image" 
+                   src="images/gallery-overview.jpg" 
+                   alt="Vista previa del sistema Finanzas 360" 
+                   class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]">
+              <div class="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white text-xs px-2.5 py-1.5 rounded-lg backdrop-blur flex items-center gap-1.5 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                <span>Hacé clic para ampliar</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información del Hub activo -->
+          <div class="lg:col-span-4 flex flex-col justify-between self-stretch">
+            <div>
+              <span id="gallery-badge" class="pill-clean text-xs px-2.5 py-0.5 rounded-full font-medium inline-block mb-2.5">
+                Ecosistema 360
+              </span>
+              <h3 id="gallery-title" class="font-serif text-2xl font-normal text-planner-fg dark:text-planner-darkFg leading-tight mb-3">
+                Todo en una Sola Planilla Automatizada
+              </h3>
+              <p id="gallery-desc" class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-5">
+                5 hubs conectados entre sí para controlar ingresos, gastos, hábitos y metas sin saltar de una app a otra.
+              </p>
+
+              <!-- Bullets de beneficios del hub -->
+              <div id="gallery-highlights" class="space-y-2.5 mb-6">
+                <!-- Se inyectan con JS -->
+              </div>
+            </div>
+
+            <!-- Controles de navegación Anterior / Siguiente -->
+            <div class="pt-4 border-t border-planner-border dark:border-planner-darkBorder flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <button type="button" id="gallery-prev" aria-label="Anterior" class="w-10 h-10 rounded-full bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder flex items-center justify-center text-planner-fg dark:text-planner-darkFg hover:bg-planner-accent dark:hover:bg-planner-darkMuted active:scale-95 transition cursor-pointer shadow-sm">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button type="button" id="gallery-next" aria-label="Siguiente" class="w-10 h-10 rounded-full bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder flex items-center justify-center text-planner-fg dark:text-planner-darkFg hover:bg-planner-accent dark:hover:bg-planner-darkMuted active:scale-95 transition cursor-pointer shadow-sm">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <span id="gallery-counter" class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg font-mono ml-1">1 / 5</span>
+              </div>
+
+              <a href="#checkout" class="text-xs font-medium text-planner-primary dark:text-planner-darkPrimary hover:underline">
+                Obtener Sistema ($9.900 ARS) →
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Ticker / Carrusel de miniaturas clickeables estilo LifeOS -->
+      <div class="overflow-x-auto pb-2 no-scrollbar">
+        <div class="flex items-center gap-3.5 min-w-max mx-auto justify-center" id="gallery-thumbnails">
+          <!-- Inyectado con JS -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2. SECCIÓN: UN SISTEMA CALMO (6 CARACTERÍSTICAS IDÉNTICAS A LIFE OS) -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 bg-planner-card dark:bg-planner-darkCard border-y border-planner-border dark:border-planner-darkBorder transition-colors">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="pill-clean text-xs px-3 py-1 rounded-full font-medium">
+          Todo Conectado
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-normal text-planner-fg dark:text-planner-darkFg mt-3">
+          Un Sistema Calmo para Cada Área de tu Vida
+        </h2>
+        <p class="text-planner-mutedFg dark:text-planner-darkMutedFg text-sm sm:text-base mt-2">
+          Dashboards inteligentes, planificadores integrados y configuración para principiantes. Finanzas, metas, hábitos y tranquilidad en un solo lugar.
+        </p>
+      </div>
+
+      <!-- Grid 3x2 de Cards -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Card 1 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm hover:shadow-card-hover transition-all">
+          <div class="w-10 h-10 rounded-xl bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-lg mb-4 text-planner-primary dark:text-planner-darkPrimary">
+            🌿
+          </div>
+          <h3 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">Un Solo Sistema Conectado</h3>
+          <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Ingresos, gastos fijos, salidas y compras en cuotas reunidos en un único espacio. Sin notas sueltas ni apps de suscripciones en dólares.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm hover:shadow-card-hover transition-all">
+          <div class="w-10 h-10 rounded-xl bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-lg mb-4 text-planner-primary dark:text-planner-darkPrimary">
+            ⚡
+          </div>
+          <h3 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">Dashboards que Hacen el Trabajo</h3>
+          <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Cargás tus gastos en 2 minutos y las fórmulas, balances y gráficos se actualizan solos. Sabés con exactitud cuánto podés gastar hoy.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm hover:shadow-card-hover transition-all">
+          <div class="w-10 h-10 rounded-xl bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-lg mb-4 text-planner-primary dark:text-planner-darkPrimary">
+            💳
+          </div>
+          <h3 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">Módulo de Cuotas & Tarjetas</h3>
+          <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Pensado especialmente para la realidad de Argentina. Registrás tus cuotas y tenés previsibilidad exacta de tus vencimientos futuros.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm hover:shadow-card-hover transition-all">
+          <div class="w-10 h-10 rounded-xl bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-lg mb-4 text-planner-primary dark:text-planner-darkPrimary">
+            🌓
+          </div>
+          <h3 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">Modo Claro y Oscuro Incluidos</h3>
+          <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Planificá de día en un tono claro y relajado, o cambiá al modo oscuro para revisar tus números de noche sin cansar la vista.
+          </p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm hover:shadow-card-hover transition-all">
+          <div class="w-10 h-10 rounded-xl bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-lg mb-4 text-planner-primary dark:text-planner-darkPrimary">
+            📱
+          </div>
+          <h3 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">En Celular, Tablet y PC</h3>
+          <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Compatible con la app gratuita de Google Sheets y Excel. Registrás un gasto en la calle desde el celular y se sincroniza en la nube al instante.
+          </p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm hover:shadow-card-hover transition-all">
+          <div class="w-10 h-10 rounded-xl bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-lg mb-4 text-planner-primary dark:text-planner-darkPrimary">
+            ✨
+          </div>
+          <h3 class="font-serif font-medium text-lg text-planner-fg dark:text-planner-darkFg mb-2">Sin Curvas de Aprendizaje</h3>
+          <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            100% amigable para principiantes. Si sabés escribir un número en el teclado, sabés usarlo. Viene con video tutorial explicativo paso a paso.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+    <!-- 3. SECCIÓN: QUÉ INCLUYE (DETAILED HUBS SHOWCASE RÉPLICA LIFE OS) -->
+  <section id="que-incluye" class="py-16 md:py-24 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20">
+        <span class="pill-clean text-xs px-3 py-1 rounded-full font-medium inline-flex items-center gap-1.5 mb-3">
+          <svg class="w-3.5 h-3.5 text-planner-primary dark:text-planner-darkPrimary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          Todo lo que Recibís
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-planner-fg dark:text-planner-darkFg tracking-tight">
+          Cada Hub por Dentro, con Todos los Detalles
+        </h2>
+        <p class="text-planner-mutedFg dark:text-planner-darkMutedFg text-sm sm:text-base mt-3">
+          Cada página funciona en tu computadora, tablet y celular. Lo abrís una vez y toda tu vida queda organizada en un solo lugar.
+        </p>
+      </div>
+
+      <div class="space-y-20 md:space-y-28">
+
+        <!-- HUB 1: FINANZAS & PRESUPUESTO (Imagen izquierda, Texto derecha) -->
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-14 items-center">
+          <!-- Columna Imagen -->
+          <div class="relative group cursor-pointer" onclick="openLightbox('images/gallery-finanzas.jpg', 'Hub de Finanzas — Presupuesto, Ahorro y Deudas')">
+            <div class="absolute -inset-2 bg-gradient-to-r from-planner-primary/20 to-planner-secondary/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+            <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 md:border-6 border-white dark:border-[#242823] bg-white">
+              <img src="images/gallery-finanzas.jpg" 
+                   alt="Hub de Finanzas — Presupuesto, Ahorro y Deudas" 
+                   class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                   loading="lazy">
+              <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-md backdrop-blur">
+                🔍 Clic para ampliar
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Texto -->
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary flex items-center justify-center font-serif font-bold text-base shadow-sm">
+                1
+              </div>
+              <span class="pill-clean text-xs px-2.5 py-0.5 rounded-full font-medium">Finanzas Personales</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal text-planner-fg dark:text-planner-darkFg mb-3">
+              Hub de Finanzas — Tu Dinero, Bajo Control
+            </h3>
+            <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-6">
+              Ingresos, gastos fijos, salidas y deudas agrupados en un tablero ultra claro. Las fórmulas y gráficos calculan tus balances al instante para que no dependas de cálculos mentales.
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Balance Mensual & Anual</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Comparativa histórica automática de tus ingresos y gastos mes a mes.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Módulo de Cuotas & Tarjetas</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Registro específico de compras financiadas y calendario de vencimientos futuros.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Regla de los 4 Bolsillos</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Distribución automática: Gastos fijos, Disfrute, Colchón anti-inflación e Inversión.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Gastos Hormiga & Suscripciones</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Identificá fugas de dinero invisibles y recuperá hasta un 15% de tu sueldo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HUB 2: PANEL CENTRAL & PRODUCTIVIDAD (Texto izquierda, Imagen derecha) -->
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-14 items-center">
+          <!-- Columna Texto (en desktop a la izquierda) -->
+          <div class="order-2 lg:order-1">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary flex items-center justify-center font-serif font-bold text-base shadow-sm">
+                2
+              </div>
+              <span class="pill-clean text-xs px-2.5 py-0.5 rounded-full font-medium">Productividad & Foco</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal text-planner-fg dark:text-planner-darkFg mb-3">
+              Un Solo Panel Central para Todo
+            </h3>
+            <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-6">
+              Foco, tiempo, hábitos y finanzas centralizados. Empezá el día sabiendo exactamente en qué enfocar tu energía y cuánto podés gastar hoy sin comprometer tus ahorros.
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Vista Ejecutiva 360°</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Un resumen visual del estado general de tus objetivos, finanzas y salud en un vistazo.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Registro Exprés en 30 Segundos</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Anotá cualquier movimiento en segundos desde el celular sin demoras.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Presupuesto Diario Dinámico</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Te dice cuánto dinero libre tenés por día considerando los días que le quedan al mes.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Sincronización en la Nube</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Accedé en tiempo real desde Google Sheets o Excel en cualquier pantalla.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Imagen (en desktop a la derecha) -->
+          <div class="order-1 lg:order-2 relative group cursor-pointer" onclick="openLightbox('images/gallery-dashboard.jpg', 'Un Solo Panel para Todo — Foco, Tiempo y Finanzas')">
+            <div class="absolute -inset-2 bg-gradient-to-r from-planner-primary/20 to-planner-secondary/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+            <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 md:border-6 border-white dark:border-[#242823] bg-white">
+              <img src="images/gallery-dashboard.jpg" 
+                   alt="Panel Central — Foco, Tiempo y Finanzas" 
+                   class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                   loading="lazy">
+              <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-md backdrop-blur">
+                🔍 Clic para ampliar
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HUB 3: BIENESTAR & HÁBITOS (Imagen izquierda, Texto derecha) -->
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-14 items-center">
+          <!-- Columna Imagen -->
+          <div class="relative group cursor-pointer" onclick="openLightbox('images/gallery-bienestar.jpg', 'Hub de Hábitos & Bienestar Integral')">
+            <div class="absolute -inset-2 bg-gradient-to-r from-planner-primary/20 to-planner-secondary/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+            <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 md:border-6 border-white dark:border-[#242823] bg-white">
+              <img src="images/gallery-bienestar.jpg" 
+                   alt="Hub de Bienestar — Hábitos, Sueño y Salud" 
+                   class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                   loading="lazy">
+              <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-md backdrop-blur">
+                🔍 Clic para ampliar
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Texto -->
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary flex items-center justify-center font-serif font-bold text-base shadow-sm">
+                3
+              </div>
+              <span class="pill-clean text-xs px-2.5 py-0.5 rounded-full font-medium">Salud & Rutinas</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal text-planner-fg dark:text-planner-darkFg mb-3">
+              Tu Bienestar Bajo Control — Hábitos & Salud
+            </h3>
+            <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-6">
+              El orden con la plata es consecuencia directa de tus rutinas diarias. Monitoreá tus horas de sueño, hidratación, actividad física y claridad mental sin fricción.
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Tracker de Hábitos con Rachas</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Porcentaje automático de consistencia semanal sin juicio ni culpa.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Registro de Sueño, Pasos & Agua</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Métricas de energía corporal para rendir mejor en tu día a día.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Claridad Mental & Gratitud</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Espacio semanal para reflexionar y despejar el estrés de la rutina.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Sistema Anti-Abandono</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Diseñado para retomar fácilmente aunque hayas tenido días complicados.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HUB 4: METAS A 90 DÍAS (Texto izquierda, Imagen derecha) -->
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-14 items-center">
+          <!-- Columna Texto -->
+          <div class="order-2 lg:order-1">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary flex items-center justify-center font-serif font-bold text-base shadow-sm">
+                4
+              </div>
+              <span class="pill-clean text-xs px-2.5 py-0.5 rounded-full font-medium">Metas Trimestrales</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal text-planner-fg dark:text-planner-darkFg mb-3">
+              Tus Metas Bajo Control — Bloques de 90 Días
+            </h3>
+            <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-6">
+              Dejá atrás los deseos vagos que se olvidan en febrero. Estructurá tus planes en trimestres medibles con metas claras, pasos concretos y barras de progreso visuales.
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Ciclos de Alto Rendimiento</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">La metodología de 90 días utilizada por los profesionales más productivos.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Desglose en Micro-Pasos</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Dividí grandes proyectos en acciones simples que no te abrumen.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Barra de Progreso Dinámica</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Sentí la satisfacción de ver cómo sube el porcentaje con cada tarea completada.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-planner-primary dark:text-planner-darkPrimary font-bold text-sm mb-1">✓ Balance de Fin de Ciclo</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Evaluá aprendizajes y prepará el siguiente trimestre con absoluta lucidez.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Imagen -->
+          <div class="order-1 lg:order-2 relative group cursor-pointer" onclick="openLightbox('images/gallery-metas.jpg', 'Tus Metas Bajo Control — Objetivos, Pasos y Progreso')">
+            <div class="absolute -inset-2 bg-gradient-to-r from-planner-primary/20 to-planner-secondary/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+            <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 md:border-6 border-white dark:border-[#242823] bg-white">
+              <img src="images/gallery-metas.jpg" 
+                   alt="Planificador de Metas a 90 días" 
+                   class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                   loading="lazy">
+              <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-md backdrop-blur">
+                🔍 Clic para ampliar
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HUB 5: TODO EN 1 + GUÍA PDF DE REGALO (Imagen izquierda, Texto derecha) -->
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-14 items-center">
+          <!-- Columna Imagen -->
+          <div class="relative group cursor-pointer" onclick="openLightbox('images/gallery-overview.jpg', 'Todo en una Sola Planilla por $9.900 ARS')">
+            <div class="absolute -inset-2 bg-gradient-to-r from-planner-primary/20 to-planner-secondary/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+            <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 md:border-6 border-white dark:border-[#242823] bg-white">
+              <img src="images/gallery-overview.jpg" 
+                   alt="Todo en una Sola Planilla Automatizada" 
+                   class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                   loading="lazy">
+              <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[11px] px-2 py-1 rounded-md backdrop-blur">
+                🔍 Clic para ampliar
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Texto -->
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-full bg-[#c27a54]/20 text-[#c27a54] flex items-center justify-center font-serif font-bold text-base shadow-sm">
+                5
+              </div>
+              <span class="pill-clean text-xs px-2.5 py-0.5 rounded-full font-medium">Guía PDF & Bonos Incluidos</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal text-planner-fg dark:text-planner-darkFg mb-3">
+              Guía en PDF "Finanzas sin Estrés" + Video Tutorial
+            </h3>
+            <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed mb-6">
+              El complemento perfecto: una lectura ágil de 40 páginas donde aprendés la estrategia psicológica para liquidar deudas, más un video paso a paso de 7 minutos.
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-[#c27a54] font-bold text-sm mb-1">✓ Guía PDF de 40 Páginas</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Lectura directa y amena sin tecnicismos complejos de economía.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-[#c27a54] font-bold text-sm mb-1">✓ Calculadora Cuotas vs. Contado</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Averiguá en 5 segundos si el interés de las cuotas le gana o no a la inflación.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-[#c27a54] font-bold text-sm mb-1">✓ Video Tutorial de 7 Minutos</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Configurás todo en tu primera tarde mirando el video instructivo.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder">
+                <div class="text-[#c27a54] font-bold text-sm mb-1">✓ Sin Cuotas Mensuales</div>
+                <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">Acceso de por vida a las plantillas con actualizaciones futuras libres de costo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de Valor Total -->
+      <div class="mt-16 p-5 sm:p-6 rounded-3xl bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-card">
+        <div>
+          <div class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg">
+            Valor acumulado de las 5 herramientas por separado: 
+            <span class="line-through font-mono font-medium text-planner-fg dark:text-planner-darkFg text-base ml-1">$38.500 ARS</span>
+          </div>
+          <p class="text-xs text-planner-primary dark:text-planner-darkPrimary font-medium mt-0.5">
+            Llevate los 5 Hubs hoy en un solo pago único con 70% de descuento
+          </p>
+        </div>
+        <a href="#checkout" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-planner-primary hover:bg-planner-primaryHover dark:bg-planner-darkPrimary dark:text-[#1c1f1b] text-white font-medium text-xs sm:text-sm px-6 py-3 rounded-xl transition shadow-sm whitespace-nowrap">
+          <span>Comprar por $9.900 ARS</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4. SECCIÓN CÓMO FUNCIONA (HOW IT WORKS - 4 PASOS IDÉNTICOS) -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 bg-planner-card dark:bg-planner-darkCard border-y border-planner-border dark:border-planner-darkBorder transition-colors">
+    <div class="max-w-4xl mx-auto text-center">
+      
+      <span class="pill-clean text-xs px-3 py-1 rounded-full font-medium">
+        Simple y Rápido
+      </span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-planner-fg dark:text-planner-darkFg mt-3 mb-3">
+        Cómo Funciona
+      </h2>
+      <p class="text-planner-mutedFg dark:text-planner-darkMutedFg text-sm sm:text-base max-w-xl mx-auto mb-14">
+        Empezá en minutos con acceso digital inmediato a todo el paquete.
+      </p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+        
+        <!-- Paso 1 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm">
+          <div class="w-8 h-8 rounded-full bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] font-serif font-bold text-sm flex items-center justify-center mb-4">
+            1
+          </div>
+          <h3 class="font-serif font-medium text-base text-planner-fg dark:text-planner-darkFg mb-1.5">Comprás</h3>
+          <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Completás el pago 100% seguro a través de Mercado Pago.
+          </p>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm">
+          <div class="w-8 h-8 rounded-full bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] font-serif font-bold text-sm flex items-center justify-center mb-4">
+            2
+          </div>
+          <h3 class="font-serif font-medium text-base text-planner-fg dark:text-planner-darkFg mb-1.5">Descargás</h3>
+          <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Recibís los enlaces de descarga directa y a tu correo al instante.
+          </p>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm">
+          <div class="w-8 h-8 rounded-full bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] font-serif font-bold text-sm flex items-center justify-center mb-4">
+            3
+          </div>
+          <h3 class="font-serif font-medium text-base text-planner-fg dark:text-planner-darkFg mb-1.5">Mirás el Video</h3>
+          <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Mirás el tutorial de 7 minutos para conocer los atajos de la planilla.
+          </p>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="bg-planner-bg dark:bg-[#181a17] p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-sm">
+          <div class="w-8 h-8 rounded-full bg-planner-primary dark:bg-planner-darkPrimary text-white dark:text-[#1c1f1b] font-serif font-bold text-sm flex items-center justify-center mb-4">
+            4
+          </div>
+          <h3 class="font-serif font-medium text-base text-planner-fg dark:text-planner-darkFg mb-1.5">Ordenás tu Vida</h3>
+          <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg leading-relaxed">
+            Cargás tus primeros datos y disfrutás de la tranquilidad de tener todo claro.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. SECCIÓN TESTIMONIOS (WHAT USERS ARE SAYING) -->
+  <section class="py-16 md:py-24 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="pill-clean text-xs px-3 py-1 rounded-full font-medium">
+          Experiencias Reales
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-normal text-planner-fg dark:text-planner-darkFg mt-3">
+          Lo que Dicen Quienes Ya lo Usan
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- Review 1 -->
+        <div class="bg-planner-card dark:bg-planner-darkCard p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-card flex flex-col justify-between">
+          <div>
+            <div class="text-amber-500 text-xs mb-3">★★★★★</div>
+            <p class="text-planner-fg dark:text-planner-darkFg text-xs sm:text-sm leading-relaxed mb-4">
+              "Siempre intentaba llevar mis gastos en un cuaderno o en aplicaciones llenas de opciones y las dejaba a los pocos días. Con esta planilla me toma apenas dos minutos diarios y por fin tengo certeza de cuánto puedo ahorrar cada mes."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-planner-border dark:border-planner-darkBorder flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary font-bold text-xs flex items-center justify-center">
+              MF
+            </div>
+            <div>
+              <p class="text-xs font-medium text-planner-fg dark:text-planner-darkFg">Martín F.</p>
+              <p class="text-[10px] text-planner-mutedFg dark:text-planner-darkMutedFg">Córdoba • Usuario verificado</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-planner-card dark:bg-planner-darkCard p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-card flex flex-col justify-between">
+          <div>
+            <div class="text-amber-500 text-xs mb-3">★★★★★</div>
+            <p class="text-planner-fg dark:text-planner-darkFg text-xs sm:text-sm leading-relaxed mb-4">
+              "Tener varias compras en cuotas me daba mucha incertidumbre porque nunca sabía con exactitud cuánto me iba a venir en el resumen del mes siguiente. La sección de cuotas me ordenó por completo."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-planner-border dark:border-planner-darkBorder flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary font-bold text-xs flex items-center justify-center">
+              LG
+            </div>
+            <div>
+              <p class="text-xs font-medium text-planner-fg dark:text-planner-darkFg">Lucía G.</p>
+              <p class="text-[10px] text-planner-mutedFg dark:text-planner-darkMutedFg">Buenos Aires • Usuaria verificada</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-planner-card dark:bg-planner-darkCard p-6 rounded-2xl border border-planner-border dark:border-planner-darkBorder shadow-card flex flex-col justify-between">
+          <div>
+            <div class="text-amber-500 text-xs mb-3">★★★★★</div>
+            <p class="text-planner-fg dark:text-planner-darkFg text-xs sm:text-sm leading-relaxed mb-4">
+              "El contenido del PDF va directo al grano, sin vueltas teóricas. Solamente cancelando un par de suscripciones que ni me acordaba que pagaba recuperé el costo de la planilla en la primera semana."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-planner-border dark:border-planner-darkBorder flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary font-bold text-xs flex items-center justify-center">
+              DR
+            </div>
+            <div>
+              <p class="text-xs font-medium text-planner-fg dark:text-planner-darkFg">Diego R.</p>
+              <p class="text-[10px] text-planner-mutedFg dark:text-planner-darkMutedFg">Santa Fe • Usuario verificado</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. SECCIÓN DE PRECIO Y CHECKOUT (RÉPLICA LIFE OS SECTION 10) -->
+  <section id="checkout" class="py-16 md:py-24 px-4 sm:px-6 bg-planner-card dark:bg-planner-darkCard border-y border-planner-border dark:border-planner-darkBorder transition-colors">
+    <div class="max-w-xl mx-auto">
+      
+      <!-- Card Principal de Checkout -->
+      <div class="bg-planner-bg dark:bg-[#181a17] border border-planner-border dark:border-planner-darkBorder rounded-3xl p-6 sm:p-9 shadow-card">
+        
+        <div class="text-center mb-6">
+          <span class="pill-clean text-xs px-3 py-1 rounded-full font-medium inline-block mb-3">
+            Acceso Completo e Inmediato
+          </span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-normal text-planner-fg dark:text-planner-darkFg">
+            Todo el Sistema. $9.900 ARS, Pago Único.
+          </h2>
+          <p class="text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg mt-2 leading-relaxed">
+            Todo lo que ves en esta página está incluido con acceso instantáneo: Planilla Excel & Google Sheets, Guía en PDF, Tracker de Hábitos, Calculadora de Cuotas y Tutorial en video. Sin suscripciones.
+          </p>
+        </div>
+
+        <!-- Bloque de Precio -->
+        <div class="bg-planner-card dark:bg-planner-darkCard border border-planner-border dark:border-planner-darkBorder rounded-2xl p-5 mb-6 text-center shadow-sm">
+          <div class="flex items-center justify-center gap-2 mb-1">
+            <span class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg line-through font-mono">Antes: $35.000 ARS</span>
+            <span class="bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary text-[11px] font-semibold px-2 py-0.5 rounded-full">70% OFF</span>
+          </div>
+          
+          <div class="flex items-baseline justify-center gap-1 my-2">
+            <span class="text-2xl font-serif text-planner-primary dark:text-planner-darkPrimary">$</span>
+            <span class="text-5xl sm:text-6xl font-serif font-bold text-planner-fg dark:text-planner-darkFg tracking-tight">9.900</span>
+            <span class="text-sm font-sans font-medium text-planner-mutedFg dark:text-planner-darkMutedFg">ARS</span>
+          </div>
+
+          <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg">
+            Pago único • Acceso de por vida • Sin cargos mensuales
+          </p>
+        </div>
+
+        <!-- Checklist -->
+        <div class="space-y-2.5 mb-7 text-xs sm:text-sm text-planner-fg dark:text-planner-darkFg">
+          <div class="flex items-center gap-2">
+            <span class="text-planner-primary dark:text-planner-darkPrimary font-bold">✓</span>
+            <span>Plantilla completa para Microsoft Excel + Google Sheets.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-planner-primary dark:text-planner-darkPrimary font-bold">✓</span>
+            <span>Guía práctica de finanzas personales en PDF descargable.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-planner-primary dark:text-planner-darkPrimary font-bold">✓</span>
+            <span>Planificador de hábitos y objetivos trimestrales.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-planner-primary dark:text-planner-darkPrimary font-bold">✓</span>
+            <span>Calculadora para compras en cuotas vs. contado.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-planner-primary dark:text-planner-darkPrimary font-bold">✓</span>
+            <span>Acceso libre a futuras actualizaciones sin costo adicional.</span>
+          </div>
+        </div>
+
+        <!-- BOTÓN PRINCIPAL DE CHECKOUT (MERCADO PAGO) -->
+        <div class="space-y-3">
+          <a id="mp-checkout-btn" 
+             href="https://mpago.li/1j2dwiG" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="w-full flex items-center justify-center gap-2.5 bg-planner-primary hover:bg-planner-primaryHover dark:bg-planner-darkPrimary dark:hover:bg-[#8e9973] text-white dark:text-[#1c1f1b] font-medium text-base py-4 px-6 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 text-center">
+            
+            <svg class="w-5 h-5 fill-current text-sky-400 dark:text-[#1c1f1b]" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16.93c-3.96-.49-7-3.87-7-7.93 0-.62.08-1.22.21-1.79l5.79 5.79v3.93zm5.92-3.12A7.96 7.96 0 0019 12c0-4.41-3.59-8-8-8-.62 0-1.22.08-1.79.21L15 10l3.92 5.81z"/>
+            </svg>
+            
+            <span>Comprar con Mercado Pago ($9.900 ARS)</span>
+          </a>
+
+          <p class="text-center text-[11px] text-planner-mutedFg dark:text-planner-darkMutedFg">
+            🔒 Procesado de forma 100% segura por Mercado Pago. Acepta Débito, Crédito o Dinero en cuenta.
+          </p>
+        </div>
+
+        <!-- Sellos de Seguridad -->
+        <div class="mt-6 pt-5 border-t border-planner-border dark:border-planner-darkBorder flex flex-wrap items-center justify-center gap-4 text-[11px] text-planner-mutedFg dark:text-planner-darkMutedFg">
+          <span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-planner-primary dark:text-planner-darkPrimary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            Conexión Segura SSL
+          </span>
+          <span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-planner-primary dark:text-planner-darkPrimary" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            Envío Inmediato a tu Correo
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Garantía Incondicional -->
+      <div class="mt-6 bg-planner-bg dark:bg-[#181a17] border border-planner-border dark:border-planner-darkBorder rounded-2xl p-5 flex items-start gap-4 shadow-sm">
+        <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-planner-accent dark:bg-planner-darkMuted flex items-center justify-center text-planner-primary dark:text-planner-darkPrimary text-xl">
+          🛡️
+        </div>
+        <div>
+          <h3 class="font-serif font-medium text-planner-fg dark:text-planner-darkFg text-sm sm:text-base">Garantía de Satisfacción de 7 Días</h3>
+          <p class="text-xs text-planner-mutedFg dark:text-planner-darkMutedFg mt-1 leading-relaxed">
+            Descargá el paquete, probá la planilla y leé la guía. Si sentís que no te aportó valor o no es lo que esperabas, nos mandás un correo dentro de los primeros 7 días y te reembolsamos el <strong>100% de tu plata</strong> sin vueltas.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. FAQ (PREGUNTAS FRECUENTES) -->
+  <section class="py-12 md:py-16 px-4 sm:px-6 max-w-2xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="font-serif text-2xl sm:text-3xl font-normal text-planner-fg dark:text-planner-darkFg">Preguntas Frecuentes</h2>
+      <p class="text-planner-mutedFg dark:text-planner-darkMutedFg text-xs sm:text-sm mt-1">Todo lo que necesitás saber antes de empezar</p>
+    </div>
+
+    <div class="space-y-3" id="faq-accordion">
+      
+      <!-- FAQ 1 -->
+      <div class="border border-planner-border dark:border-planner-darkBorder bg-planner-card dark:bg-planner-darkCard rounded-xl overflow-hidden shadow-sm transition-colors">
+        <button type="button" class="faq-toggle w-full px-5 py-4 text-left flex justify-between items-center text-sm font-medium text-planner-fg dark:text-planner-darkFg focus:outline-none cursor-pointer">
+          <span>¿Necesito saber usar Excel avanzado?</span>
+          <svg class="faq-arrow w-4 h-4 text-planner-mutedFg dark:text-planner-darkMutedFg transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-5 pb-4 text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg border-t border-planner-border/60 dark:border-planner-darkBorder pt-3 leading-relaxed">
+          Para nada. La planilla viene completamente armada y lista para usar. Solo tenés que cargar los montos de tus ingresos y gastos; todas las fórmulas, balances y gráficos se calculan automáticamente. Además, incluye un breve video instructivo donde te mostramos todo paso a paso.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="border border-planner-border dark:border-planner-darkBorder bg-planner-card dark:bg-planner-darkCard rounded-xl overflow-hidden shadow-sm transition-colors">
+        <button type="button" class="faq-toggle w-full px-5 py-4 text-left flex justify-between items-center text-sm font-medium text-planner-fg dark:text-planner-darkFg focus:outline-none cursor-pointer">
+          <span>¿Puedo usarlo desde el celular?</span>
+          <svg class="faq-arrow w-4 h-4 text-planner-mutedFg dark:text-planner-darkMutedFg transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-5 pb-4 text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg border-t border-planner-border/60 dark:border-planner-darkBorder pt-3 leading-relaxed">
+          Sí. Podés abrirlo directamente con la aplicación gratuita de Google Sheets (Hojas de cálculo de Google) tanto en Android como en iPhone, o con la app de Microsoft Excel. Tus cambios se sincronizan en la nube para que puedas registrar gastos en el momento desde donde estés.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="border border-planner-border dark:border-planner-darkBorder bg-planner-card dark:bg-planner-darkCard rounded-xl overflow-hidden shadow-sm transition-colors">
+        <button type="button" class="faq-toggle w-full px-5 py-4 text-left flex justify-between items-center text-sm font-medium text-planner-fg dark:text-planner-darkFg focus:outline-none cursor-pointer">
+          <span>¿Cómo y cuándo me llega el acceso?</span>
+          <svg class="faq-arrow w-4 h-4 text-planner-mutedFg dark:text-planner-darkMutedFg transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-5 pb-4 text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg border-t border-planner-border/60 dark:border-planner-darkBorder pt-3 leading-relaxed">
+          El acceso es instantáneo. Apenas completás el pago en Mercado Pago, el sistema te redirige a los enlaces de descarga y te envía un correo electrónico con los archivos de la planilla, la guía en PDF y todos los bonos.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="border border-planner-border dark:border-planner-darkBorder bg-planner-card dark:bg-planner-darkCard rounded-xl overflow-hidden shadow-sm transition-colors">
+        <button type="button" class="faq-toggle w-full px-5 py-4 text-left flex justify-between items-center text-sm font-medium text-planner-fg dark:text-planner-darkFg focus:outline-none cursor-pointer">
+          <span>¿Tengo que pagar alguna mensualidad?</span>
+          <svg class="faq-arrow w-4 h-4 text-planner-mutedFg dark:text-planner-darkMutedFg transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-5 pb-4 text-xs sm:text-sm text-planner-mutedFg dark:text-planner-darkMutedFg border-t border-planner-border/60 dark:border-planner-darkBorder pt-3 leading-relaxed">
+          No. Es un pago único. No existen costos recurrentes, renovaciones ni cobros sorpresa en dólares.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-planner-border dark:border-planner-darkBorder bg-planner-card dark:bg-[#121411] py-8 px-4 text-center text-xs text-planner-mutedFg dark:text-planner-darkMutedFg transition-colors">
+    <div class="max-w-4xl mx-auto space-y-2.5">
+      <div class="flex items-center justify-center gap-2">
+        <div class="w-5 h-5 bg-planner-primary rounded flex items-center justify-center text-white font-serif font-bold text-xs">
+          F
+        </div>
+        <span class="font-serif text-planner-fg dark:text-planner-darkFg text-sm font-semibold">Finanzas360</span>
+      </div>
+      <p>Este sitio no forma parte ni está respaldado por Meta, Facebook o Google. Todos los derechos reservados.</p>
+      <div class="flex justify-center gap-4 text-planner-mutedFg dark:text-planner-darkMutedFg pt-2 text-[11px]">
+        <a href="#checkout" class="hover:underline">Términos y Condiciones</a>
+        <span>•</span>
+        <a href="#checkout" class="hover:underline">Políticas de Privacidad</a>
+        <span>•</span>
+        <a href="mailto:soporte@finanzas360.ar" class="hover:underline">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  
+  <!-- LIGHTBOX MODAL PARA EXPANDIR CUALQUIER IMAGEN (100% ACCESIBLE Y FIABLE) -->
+  <div id="image-lightbox" 
+       role="dialog" 
+       aria-modal="true" 
+       aria-label="Vista ampliada de imagen"
+       class="fixed inset-0 z-[70] bg-black/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 transition-opacity duration-200 opacity-0 cursor-zoom-out"
+       onclick="closeLightbox(event)">
+    
+    <!-- Botón Cerrar Flotante Siempre Visible -->
+    <button type="button" 
+            id="lightbox-close" 
+            aria-label="Cerrar vista ampliada" 
+            onclick="closeLightbox(event)"
+            class="fixed top-4 right-4 z-[80] w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white/35 active:scale-95 text-white flex items-center justify-center transition cursor-pointer shadow-2xl border border-white/25 focus:outline-none">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Contenedor de la Imagen y Caption -->
+    <div class="relative max-w-5xl w-full max-h-[92vh] flex flex-col items-center justify-center cursor-default" 
+         onclick="event.stopPropagation()">
+      
+      <!-- Marco de la imagen -->
+      <div class="rounded-2xl overflow-hidden border-2 sm:border-4 border-white/20 shadow-2xl bg-[#1c1f1b] max-h-[78vh] sm:max-h-[82vh] flex items-center justify-center">
+        <img id="lightbox-img" 
+             src="" 
+             alt="Captura ampliada" 
+             class="max-h-[78vh] sm:max-h-[82vh] w-auto max-w-full object-contain select-none">
+      </div>
+
+      <!-- Barra de Info y Cerrar -->
+      <div class="flex items-center justify-between w-full max-w-2xl mt-3 px-2 text-white/90">
+        <div id="lightbox-caption" class="text-xs sm:text-sm font-medium truncate pr-4"></div>
+        <button type="button" 
+                onclick="closeLightbox(event)" 
+                class="flex-shrink-0 text-xs bg-white/15 hover:bg-white/25 active:scale-95 text-white px-3 py-1.5 rounded-lg border border-white/20 transition cursor-pointer flex items-center gap-1.5">
+          <span>Cerrar</span>
+          <span class="text-[10px] opacity-75 hidden sm:inline">(ESC)</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BARRA FLOTANTE MOBILE -->
+  <div id="sticky-bottom-bar" class="fixed bottom-0 left-0 right-0 p-3 bg-planner-card/95 dark:bg-planner-darkCard/95 backdrop-blur-md border-t border-planner-border dark:border-planner-darkBorder z-50 transform translate-y-full transition-transform duration-300 md:hidden shadow-card">
+    <div class="flex items-center justify-between gap-3 max-w-md mx-auto">
+      <div class="leading-tight">
+        <div class="text-[10px] text-planner-mutedFg dark:text-planner-darkMutedFg">Oferta Lanzamiento</div>
+        <div class="text-base font-serif font-semibold text-planner-fg dark:text-planner-darkFg">$9.900 ARS</div>
+      </div>
+      <a href="#checkout" class="flex-1 bg-planner-primary active:bg-planner-primaryHover dark:bg-planner-darkPrimary dark:text-[#1c1f1b] text-white font-medium text-xs sm:text-sm py-3 px-4 rounded-xl text-center shadow-sm">
+        QUIERO MI SISTEMA
+      </a>
+    </div>
+  </div>
+
+  <!-- SCRIPT DE INTERACCIÓN Y CRO -->
+  <script>
+    // 1. Manejo del Tema Claro / Oscuro con persistencia en localStorage
+    (function initTheme() {
+      const toggleBtn = document.getElementById('theme-toggle');
+      const sunIcon = document.getElementById('theme-icon-sun');
+      const moonIcon = document.getElementById('theme-icon-moon');
+
+      function syncIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (isDark) {
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+        } else {
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+        }
+      }
+      syncIcons();
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+          syncIcons();
+        });
+      }
+    })();
+
+    // 2. Contador regresivo dinámico
+    (function initCountdown() {
+      const countdownEl = document.getElementById('countdown');
+      if (!countdownEl) return;
+
+      const DURATION_SECONDS = 4 * 3600 + 47 * 60 + 12;
+      let endTime = localStorage.getItem('cro_deal_end');
+
+      if (!endTime || Date.now() > parseInt(endTime, 10)) {
+        endTime = Date.now() + DURATION_SECONDS * 1000;
+        localStorage.setItem('cro_deal_end', endTime);
+      }
+
+      let timerInterval = null;
+      function updateTimer() {
+        const remaining = Math.max(0, Math.floor((parseInt(endTime, 10) - Date.now()) / 1000));
+        const hours = String(Math.floor(remaining / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((remaining % 3600) / 60)).padStart(2, '0');
+        const seconds = String(remaining % 60).padStart(2, '0');
+        countdownEl.textContent = `${hours}:${minutes}:${seconds}`;
+
+        if (remaining <= 0 && timerInterval) {
+          clearInterval(timerInterval);
+          countdownEl.textContent = "00:00:00";
+        }
+      }
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    })();
+
+    // 3. Sticky Mobile CTA
+    (function initStickyCTA() {
+      const stickyBar = document.getElementById('sticky-bottom-bar');
+      if (!stickyBar) return;
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 380) {
+          stickyBar.classList.remove('translate-y-full');
+        } else {
+          stickyBar.classList.add('translate-y-full');
+        }
+      }, { passive: true });
+    })();
+
+    // 4. FAQ Accordion interactivo
+    (function initFAQ() {
+      const toggles = document.querySelectorAll('.faq-toggle');
+      toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const content = toggle.nextElementSibling;
+          const arrow = toggle.querySelector('.faq-arrow');
+          const isHidden = content.classList.contains('hidden');
+
+          document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+          document.querySelectorAll('.faq-arrow').forEach(a => a.classList.remove('rotate-180'));
+
+          if (isHidden) {
+            content.classList.remove('hidden');
+            arrow.classList.add('rotate-180');
+          }
+        });
+      });
+    })();
+
+    // 5. Smooth scrolling para anclas (con soporte para scroll a top en href="#")
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        const targetId = href.substring(1);
+        if (!targetId) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const targetElem = document.getElementById(targetId);
+        if (targetElem) {
+          targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  
+    // 6. Galería Interactiva con Tabs, Flechas y Miniaturas (100% Funcional)
+    (function initGallery() {
+      const galleryData = [
+        {
+          id: "overview",
+          tab: "🌿 Todo en Uno",
+          badge: "Ecosistema 360",
+          title: "Todo en una Sola Planilla Automatizada",
+          desc: "5 hubs conectados entre sí para controlar ingresos, gastos, hábitos y metas sin saltar de una app a otra. Con fórmulas automáticas y gráficos interactivos.",
+          image: "images/gallery-overview.jpg",
+          alt: "Vista general del sistema Finanzas 360",
+          highlights: [
+            "5 Hubs 100% integrados en un solo archivo",
+            "Compatible con Google Sheets y Excel",
+            "Guía práctica en PDF de 40 páginas incluida"
+          ]
+        },
+        {
+          id: "dashboard",
+          tab: "⚡ Panel Central",
+          badge: "Foco & Claridad",
+          title: "Un Solo Panel para Todo: Foco, Tiempo y Finanzas",
+          desc: "Tu centro de mando diario. En 30 segundos sabés qué cuentas vencen hoy, cuál es tu saldo disponible diario y cómo venís con tus hábitos.",
+          image: "images/gallery-dashboard.jpg",
+          alt: "Panel central y dashboard interactivo",
+          highlights: [
+            "Carga de gastos rápida en menos de medio minuto",
+            "Métricas en tiempo real con alertas visuales",
+            "Sincronización en la nube (celular, tablet y PC)"
+          ]
+        },
+        {
+          id: "finanzas",
+          tab: "💰 Hub Finanzas",
+          badge: "Finanzas Inteligentes",
+          title: "Tu Dinero Bajo Control: Presupuesto, Ahorro y Deudas",
+          desc: "Terminá con la incertidumbre a fin de mes. Las fórmulas dividen automáticamente tus ingresos según la Regla de los 4 Bolsillos para ganarle a la inflación.",
+          image: "images/gallery-finanzas.jpg",
+          alt: "Hub de Finanzas y Presupuesto",
+          highlights: [
+            "Módulo exclusivo de cuotas y tarjetas de crédito",
+            "Calculadora automática de cuotas vs. contado",
+            "Balances mensuales y comparativa histórica"
+          ]
+        },
+        {
+          id: "bienestar",
+          tab: "🧘 Hábitos & Bienestar",
+          badge: "Salud & Energía",
+          title: "Tu Bienestar Bajo Control: Hábitos, Sueño y Salud",
+          desc: "Tus finanzas son un reflejo de tus rutinas diarias. Llevá un registro claro de sueño, vasos de agua, actividad física y claridad mental.",
+          image: "images/gallery-bienestar.jpg",
+          alt: "Tracker de Hábitos y Salud",
+          highlights: [
+            "Tracker con porcentaje de consistencia y rachas",
+            "Registro de horas de sueño, agua y pasos",
+            "Diseño anti-culpa para retomar el ritmo sin estrés"
+          ]
+        },
+        {
+          id: "metas",
+          tab: "🎯 Metas 90 Días",
+          badge: "Acción & Logros",
+          title: "Tus Metas Bajo Control: Objetivos, Pasos y Progreso",
+          desc: "Dividí tus metas anuales en ciclos de 90 días. Cada objetivo se desglosa en tareas simples con una barra de avance porcentual que te mantiene enfocado.",
+          image: "images/gallery-metas.jpg",
+          alt: "Planificador de Metas a 90 días",
+          highlights: [
+            "Metodología probada de trimestres de alto impacto",
+            "Desglose de grandes metas en micro-pasos",
+            "Barra de progreso porcentual dinámica"
+          ]
+        }
+      ];
+
+      let currentIndex = 0;
+      const mainImg = document.getElementById('gallery-main-image');
+      const badgeEl = document.getElementById('gallery-badge');
+      const titleEl = document.getElementById('gallery-title');
+      const descEl = document.getElementById('gallery-desc');
+      const highlightsEl = document.getElementById('gallery-highlights');
+      const counterEl = document.getElementById('gallery-counter');
+      const tabs = document.querySelectorAll('.gallery-tab-btn');
+      const thumbsContainer = document.getElementById('gallery-thumbnails');
+      const prevBtn = document.getElementById('gallery-prev');
+      const nextBtn = document.getElementById('gallery-next');
+      const imgTrigger = document.getElementById('gallery-image-trigger');
+
+      if (!mainImg) return;
+
+      // Renderizar miniaturas clickeables
+      if (thumbsContainer) {
+        thumbsContainer.innerHTML = galleryData.map((item, idx) => `
+          <button type="button" data-index="${idx}" class="gallery-thumb flex-shrink-0 group relative rounded-xl overflow-hidden border-2 transition-all p-1 bg-planner-bg dark:bg-[#181a17] cursor-pointer ${idx === 0 ? 'border-planner-primary dark:border-planner-darkPrimary shadow-md scale-105 opacity-100' : 'border-planner-border dark:border-planner-darkBorder opacity-70 hover:opacity-100'}">
+            <div class="w-24 sm:w-28 h-16 sm:h-20 rounded-lg overflow-hidden relative">
+              <img src="${item.image}" alt="${item.tab}" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+            </div>
+            <div class="text-[10px] sm:text-[11px] font-medium text-center mt-1 text-planner-fg dark:text-planner-darkFg truncate max-w-[96px] sm:max-w-[112px]">
+              ${item.tab.split(' ').slice(1).join(' ') || item.tab}
+            </div>
+          </button>
+        `).join('');
+      }
+
+      function updateGallery(index) {
+        currentIndex = (index + galleryData.length) % galleryData.length;
+        const item = galleryData[currentIndex];
+
+        // Transición de opacidad en la imagen
+        mainImg.style.opacity = '0.35';
+        setTimeout(() => {
+          mainImg.src = item.image;
+          mainImg.alt = item.alt;
+          mainImg.style.opacity = '1';
+        }, 120);
+
+        if (badgeEl) badgeEl.textContent = item.badge;
+        if (titleEl) titleEl.textContent = item.title;
+        if (descEl) descEl.textContent = item.desc;
+        if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${galleryData.length}`;
+
+        if (highlightsEl) {
+          highlightsEl.innerHTML = item.highlights.map(h => `
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-planner-fg dark:text-planner-darkFg">
+              <span class="w-4 h-4 rounded-full bg-planner-accent dark:bg-planner-darkMuted text-planner-primary dark:text-planner-darkPrimary flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>${h}</span>
+            </div>
+          `).join('');
+        }
+
+        // Actualizar estado activo en Tabs
+        tabs.forEach((tab, i) => {
+          if (i === currentIndex) {
+            tab.className = "gallery-tab-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 bg-planner-primary text-white dark:bg-planner-darkPrimary dark:text-[#1c1f1b] shadow-sm";
+          } else {
+            tab.className = "gallery-tab-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 bg-planner-bg dark:bg-[#181a17] text-planner-mutedFg dark:text-planner-darkMutedFg hover:text-planner-fg dark:hover:text-white border border-planner-border dark:border-planner-darkBorder";
+          }
+        });
+
+        // Actualizar miniaturas activas y hacer scroll suave hacia ella
+        const thumbs = document.querySelectorAll('.gallery-thumb');
+        thumbs.forEach((thumb, i) => {
+          if (i === currentIndex) {
+            thumb.className = "gallery-thumb flex-shrink-0 group relative rounded-xl overflow-hidden border-2 transition-all p-1 bg-planner-bg dark:bg-[#181a17] border-planner-primary dark:border-planner-darkPrimary shadow-md scale-105 opacity-100";
+            thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } else {
+            thumb.className = "gallery-thumb flex-shrink-0 group relative rounded-xl overflow-hidden border-2 transition-all p-1 bg-planner-bg dark:bg-[#181a17] border-planner-border dark:border-planner-darkBorder opacity-70 hover:opacity-100";
+          }
+        });
+      }
+
+      // Event Listeners en Tabs
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const idx = parseInt(tab.getAttribute('data-index'), 10);
+          updateGallery(idx);
+        });
+      });
+
+      // Event Listeners en Miniaturas
+      if (thumbsContainer) {
+        thumbsContainer.addEventListener('click', (e) => {
+          const btn = e.target.closest('.gallery-thumb');
+          if (btn) {
+            const idx = parseInt(btn.getAttribute('data-index'), 10);
+            updateGallery(idx);
+          }
+        });
+      }
+
+      // Botón Anterior
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          updateGallery(currentIndex - 1);
+        });
+      }
+
+      // Botón Siguiente
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          updateGallery(currentIndex + 1);
+        });
+      }
+
+      // Soporte para gestos táctiles (Swipe) en móvil sobre el contenedor de la imagen
+      let touchStartX = 0;
+      let touchEndX = 0;
+      if (imgTrigger) {
+        imgTrigger.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        imgTrigger.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          if (touchStartX - touchEndX > 50) {
+            // Swipe a la izquierda -> siguiente
+            updateGallery(currentIndex + 1);
+          } else if (touchEndX - touchStartX > 50) {
+            // Swipe a la derecha -> anterior
+            updateGallery(currentIndex - 1);
+          }
+        }, { passive: true });
+
+        // Abrir lightbox al hacer clic
+        imgTrigger.addEventListener('click', () => {
+          const cur = galleryData[currentIndex];
+          openLightbox(cur.image, cur.title);
+        });
+      }
+
+      // Navegación con teclado si la galería está en foco / viewport
+      document.addEventListener('keydown', (e) => {
+        const galSec = document.getElementById('galeria-sistema');
+        if (!galSec) return;
+        const rect = galSec.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        const modal = document.getElementById('image-lightbox');
+        const isModalOpen = modal && !modal.classList.contains('hidden');
+
+        if (isInViewport && !isModalOpen) {
+          if (e.key === 'ArrowLeft') {
+            updateGallery(currentIndex - 1);
+          } else if (e.key === 'ArrowRight') {
+            updateGallery(currentIndex + 1);
+          }
+        }
+      });
+
+      // Inicializar primer slide
+      updateGallery(0);
+    })();
+
+    
+
+  
+    // 7. Lightbox global y funciones de apertura/cierre (100% blindadas)
+    window.openLightbox = function(src, caption) {
+      const modal = document.getElementById('image-lightbox');
+      const img = document.getElementById('lightbox-img');
+      const cap = document.getElementById('lightbox-caption');
+      if (!modal || !img) return;
+
+      img.src = src;
+      img.alt = caption || 'Captura de pantalla ampliada';
+      if (cap) cap.textContent = caption || '';
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      // Forzar reflow para animación suave
+      void modal.offsetWidth;
+      modal.classList.remove('opacity-0');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeLightbox = function(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      const modal = document.getElementById('image-lightbox');
+      const img = document.getElementById('lightbox-img');
+      if (!modal) return;
+
+      modal.classList.add('opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        if (img) img.src = '';
+        document.body.style.overflow = '';
+      }, 200);
+    };
+
+    // Escuchar tecla ESC globalmente para cerrar
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        const modal = document.getElementById('image-lightbox');
+        if (modal && !modal.classList.contains('hidden')) {
+          window.closeLightbox();
+        }
+      }
+    });
+
+  </script>
+
+  </body>
+</html>
