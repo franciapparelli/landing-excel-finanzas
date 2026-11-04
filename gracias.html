@@ -28,11 +28,7 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
 
-    // Inserte su Pixel ID si lo tiene configurado en window.META_PIXEL_ID o reemplace TU_PIXEL_ID
-    const pixelId = window.META_PIXEL_ID || 'TU_PIXEL_ID';
-    if (pixelId && pixelId !== 'TU_PIXEL_ID') {
-      fbq('init', pixelId);
-    }
+    fbq('init', '1726381958851140');
     fbq('track', 'PageView');
     fbq('track', 'Purchase', {
       value: 9900,
@@ -41,7 +37,7 @@
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
-         src="https://www.facebook.com/tr?id=TU_PIXEL_ID&ev=Purchase&cd[value]=9900&cd[currency]=ARS&noscript=1"/>
+         src="https://www.facebook.com/tr?id=1726381958851140&ev=Purchase&cd[value]=9900&cd[currency]=ARS&noscript=1"/>
   </noscript>
   <!-- End Meta Pixel Code -->
 
