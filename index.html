@@ -30,6 +30,29 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20width=%22100%22%20height=%22100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
 
+  <!-- Meta Pixel Code (Base + PageView) -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    const pixelId = window.META_PIXEL_ID || 'TU_PIXEL_ID';
+    if (pixelId && pixelId !== 'TU_PIXEL_ID') {
+      fbq('init', pixelId);
+    }
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=TU_PIXEL_ID&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Meta Pixel Code -->
+
   <!-- Google Fonts idénticas a LifeOSPlanner: Fraunces (Serif) + Outfit (Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -947,6 +970,7 @@
              href="https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1019750601-cad95319-022b-4a6c-ae3a-64f57281c3c6" 
              target="_blank" 
              rel="noopener noreferrer"
+             onclick="if(typeof fbq === 'function') fbq('track', 'InitiateCheckout', { value: 9900, currency: 'ARS' });"
              class="w-full flex items-center justify-center gap-2.5 bg-planner-primary hover:bg-planner-primaryHover dark:bg-planner-darkPrimary dark:hover:bg-[#8e9973] text-white dark:text-[#1c1f1b] font-medium text-base py-4 px-6 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 text-center">
             
             <svg class="w-5 h-5 fill-current text-sky-400 dark:text-[#1c1f1b]" viewBox="0 0 24 24">
